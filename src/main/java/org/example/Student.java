@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class Student {
 
     private String name;
@@ -9,6 +11,18 @@ public class Student {
     public Student(String name, int id) {
         this.name = name;
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student student)) return false;
+        return getId() == student.getId() && Objects.equals(getName(), student.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getId());
     }
 
     public Student(){}
@@ -38,19 +52,4 @@ public class Student {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Student student)) return false;
-
-        if (getId() != student.getId()) return false;
-        return getName() != null ? getName().equals(student.getName()) : student.getName() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + getId();
-        return result;
-    }
 }
